@@ -31,39 +31,23 @@ int is_valid(const char* coords, const int x, const int y, char table[ROWS][COLU
     return 1;
 }
 
-int is_won(char table[ROWS][COLUMNS]){
+int is_won(char table[ROWS][COLUMNS], char player){
     if (
-            table[0][0]=='x' && table[0][1]=='x' && table[0][2]=='x'
+            table[0][0]==player && table[0][1]==player && table[0][2]==player
         ||
-            table[0][0]=='o' && table[0][1]=='o' && table[0][2]=='o'
+            table[1][0]==player && table[1][1]==player && table[1][2]==player
         ||
-            table[1][0]=='x' && table[1][1]=='x' && table[1][2]=='x'
+            table[2][0]==player && table[2][1]==player && table[2][2]==player
         ||
-            table[1][0]=='o' && table[1][1]=='o' && table[1][2]=='o'
+            table[0][0]==player && table[1][0]==player && table[2][0]==player
         ||
-            table[2][0]=='x' && table[2][1]=='x' && table[2][2]=='x'
+            table[0][1]==player && table[1][1]==player && table[2][1]==player
         ||
-            table[2][0]=='o' && table[2][1]== 'o' && table[2][2]=='o'
+            table[0][2]==player && table[1][2]==player && table[2][2]==player
         ||
-            table[0][0]=='x' && table[1][0]=='x' && table[2][0]=='x'
+            table[0][0]==player && table[1][1]==player && table[2][2]==player
         ||
-            table[0][0]=='o' && table[1][0]=='o' && table[2][0]=='o'
-        ||
-            table[0][1]=='x' && table[1][1]=='x' && table[2][1]=='x'
-        ||
-            table[0][1]=='o' && table[1][1]=='o' && table[2][1]=='o'
-        ||
-            table[0][2]=='x' && table[1][2]=='x' && table[2][2]=='x'
-        ||
-            table[0][2]=='o' && table[1][2]=='o' && table[2][2]=='o'
-        ||
-            table[0][0]=='x' && table[1][1]=='x' && table[2][2]=='x'
-        ||
-            table[0][0]=='o' && table[1][1]=='o' && table[2][2]=='o'
-        ||
-            table[0][2]=='x' && table[1][1]=='x' && table[2][0] == 'x'
-        ||
-            table[0][2]=='o' && table[1][1]=='o' && table[2][0] == 'o'
+            table[0][2]==player && table[1][1]==player && table[2][0] == player
     )
     {
         return 1;
@@ -88,9 +72,10 @@ void new_turn(const char player, char table[ROWS][COLUMNS]){
 
     table[x][y] = player;
 
+    system("clear");
     my_print(table);
 
-    if (is_won(table))
+    if (is_won(table, player))
     {
         printf("Player %c won!\n", player);
         exit(0);
@@ -107,6 +92,7 @@ int main(){
 
 // -- CALLING GAME LOGIC FUNCTIONS
 
+    system("clear");
     my_print(table);
 
     new_turn('x', table);
